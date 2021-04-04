@@ -9,8 +9,7 @@ Furthermore, we have begun training the initial image recognition model that wil
 
 For the image recognition segment of the project, we decided to use YOLO which is an object-detection model in order to decipher the game title fragment of the game covers. We then used image augmentation techniques on each game title (such as rotation, etc.) to produce around 200 images (per game). Next, we pass these images of game titles into Google’s Inception model in order to classify the titles into the corresponding games which we can cross-reference with out dataset.
 
-[One line about current results from Aayush’s training].
-
+The accuracy of the title detector model is approximately 85% while the recognition model is still being tested with different augmentation techniques.
 
 Feature Changes to the Proposal:
 - (Possibility) As a fallback plan, if the image classifier is not able to classify the image of game titles accurately, then we will switch to working on a model that performs Image Text to Text conversion which is more likely to give us accurate results if we can get it working.
