@@ -3,11 +3,11 @@ Milestone M1 report
 Current State of the Project:
 Our team is building a game recommender Android Application that takes in user input images of up to 3 game title covers and recommends games of similar genre and plots. It uses two ML models: one for image recognition to decipher the game title and a recommender model to recommend similar games. 
 
-Our team has gone through the proposal together and have a fair understanding of what the final product should look like. Currently, we have collated a dataset which includes ‘PS4 Games’ from Kaggle along with additional information such as their genres. These genres were entered into the CSV file.
+Our team has gone through the proposal together and have a fair understanding of what the final product should look like. Currently, we have collated a dataset which includes ‘PS4 Games’ from Kaggle along with additional information that we deem useful in the future. They include: genres, developers, publishers, release date and size of the games. These information were entered as additional columns into the 'games_info.csv' file.
 
-Furthermore, we have begun training the initial image recognition model that will be used to recognize the game title from the user input images and then cross reference it with the dataset before it is processed by the second recommender model (that will be built over the coming weeks).
+Furthermore, we have begun training the initial image recognition model that will be used to recognize the game title from the user input images and then cross-reference it with the dataset before it is processed by the second recommender model (that will be built over the coming weeks).
 
-For the image recognition segment of the project, we decided to use YOLO which is an object-detection model in order to decipher the game title fragment of the game covers. We then used image augmentation techniques on each game title (such as rotation, etc.) to produce around 200 images (per game). Next, we pass these images of game titles into Google’s Inception model in order to classify the titles into the corresponding games which we can cross-reference with out dataset.
+For the image recognition segment of the project, we decided to use YOLO which is an object-detection model in order to decipher the game title fragment of the game covers. We then used image augmentation techniques on each game title (such as rotation, etc.) to produce around 200 images (per game). Next, we pass these images of game titles into Google’s Inception model in order to classify the titles into the corresponding games which we can cross-reference with our dataset.
 
 The accuracy of the title detector model is approximately 85% while the recognition model is still being tested with different augmentation techniques.
 
@@ -21,7 +21,7 @@ Current Challenges/Bottlenecks:
 
 Team Member Responsibilities:
 
-Aayush: Training the recognition model using YOLO and Inception to check for initial accuracy.
-Harshil: Double Checking the insertion of game genres for accuracy and Milestone Report.
-Kolton: Double Checking the insertion of game genres for accuracy.
-Nick: Automating the insertion of game genres for the Dataset in the CSV file.
+Aayush: Collating the images dataset and training the recognition model using YOLO and Inception to check for initial accuracy.
+Harshil: Double Checking the insertion of additional information for accuracy and Milestone Report.
+Kolton: Double Checking the insertion of additional information for accuracy.
+Nick: Automating the insertion of additional information into the Dataset in the 'games_info.csv' file.
