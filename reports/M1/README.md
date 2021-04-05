@@ -12,7 +12,7 @@ For the image recognition segment of the project, we decided to use YOLO which i
 The accuracy of the title detector model is approximately 85% while the recognition model is still being tested with different augmentation techniques.
 
 Feature Changes to the Proposal:
-- (Possibility) As a fallback plan, if the image classifier is not able to classify the image of game titles accurately, then we will switch to working on a model that performs Image Text to Text conversion which is more likely to give us accurate results if we can get it working.
+- (Possibility) As a fallback plan, if the image classifier is not able to classify the image of game titles accurately, then we will switch to working on a model that performs Image Text to Text conversion which is more likely to give us accurate results if we can get it working. ALternatively, we could pick out a subset of the games which have a good chance of being someone's favourite PS4 game and train the classifier on those games only.
 
 Current Challenges/Bottlenecks:
 -    Firstly, even though the model extracts the fragments of game covers just including the title considerably well, it does not reach the levels of expected accuracy when it comes to classifying these images into the actual game titles that we can then pass into our future recommender model.
