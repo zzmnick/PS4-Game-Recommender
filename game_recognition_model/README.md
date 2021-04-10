@@ -7,7 +7,7 @@ How to use?
 
 This portion requires two main installations:
 
-1. Yolov3 weights in ./game_recognition_model (Link to be posted)
+1. Yolov3 weights in ./game_recognition_model (Link: https://drive.google.com/file/d/1BjNKgL5NeZ_SMvksO0XBQLm0lvH74yTG/view?usp=sharing )
 
 2. Tensorflow (preferably above 2.0, needs slight modifications with 1.8)
 
