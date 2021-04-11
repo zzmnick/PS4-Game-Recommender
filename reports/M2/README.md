@@ -5,7 +5,7 @@ During this milestone, our team has made significant progress in the ML componen
 
 In addition to this, our team has also worked on the game recommender model. We realized that in addition to the game metadata dataset (games_info.csv) used by the image recognition/classification model, we required another dataset (user_ratings.csv) that contains individual user ratings per game for training our recommender model. Hence, we worked together to create such a dataset by scraping Metacritic pages for the (username, rating) pairs and manually entered the information for titles that could not be parsed automatically. After the additional dataset is ready, we started building and training our recommender model. By now, we have achieved an acceptable test loss of around 2 by applying techniques such as data augmentation. Also, in terms of acutal recommendations, the model produces reasonable results for many tested inputs. 
 
-Finally, just as was planned in the proposal, we have begun research on app development with Android Studio. We have begun working on the frontend of our app, and we now have a skeleton of our app's UI ready. The fully completed version of the app's frontend will be submitted as the deliverable for Milestone 3.
+Finally, just as was planned in the proposal, we have begun research on app development with Android Studio. We have begun working on the frontend of our app, and we now have a skeleton of our app's UI ready(in the 'GameRecommender' directory). The fully completed version of the app's frontend will be submitted as the deliverable for Milestone 3.
 
 Feature Changes to the Proposal:
 N/A. We did not hit any dead ends/roadblocks that would require us to change any features from the proposal during this Milestone.
