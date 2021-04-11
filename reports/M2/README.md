@@ -16,6 +16,6 @@ Current Challenges/Bottlenecks:
 
 Team Member Responsibilities:
 Aayush: Trained and tested the image recognition and classification model which is now working with an acceptable accuracy.
-Harshil: Manual entry of Metacritic pages for the dataset and worked on the recommender model.
+Harshil: Manual entry of Metacritic pages for the dataset, worked on the recommender model and wrote the M2 report.
 Kolton: Manual entry of Metacritic pages for the dataset and began working on the skeleton UI for the app.
 Nick: Web Scraping and retrieving Metacritic pages, collated the dataset of user info into a csv file and worked on the recommender model.
