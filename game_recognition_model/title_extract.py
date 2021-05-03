@@ -15,7 +15,7 @@ def get_title(path):
     net.setInput(blob)
     outs = net.forward(output_layers)
     box = 0
-    max = 0
+    m = 0
     for out in outs:
         for detection in out:
             scores = detection[5:]
@@ -33,8 +33,8 @@ def get_title(path):
                 x = int(center_x - w / 2)
                 y = int(center_y - h / 2)
 
-                if (width*height)>max:
-                    max = width*height
+                if (width*height)>m:
+                    m = width*height
                     box = [x,y,w,h]
     if box == 0:
         return [None],None,None            
@@ -45,6 +45,10 @@ def get_title(path):
     #        cv2.THRESH_BINARY,11,2)
     #cv2.imshow("..",portion)
     #cv2.waitkey(0)
+    height, width, channels = portion.shape
+    #dim = max([height,width])
+    #factor = 224/dim
+    portion = cv2.resize(portion,None,fx = 224/width, fy = 224/height)
     return portion,height,width
 
 
