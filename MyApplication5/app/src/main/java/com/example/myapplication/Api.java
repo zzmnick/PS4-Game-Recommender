@@ -9,7 +9,6 @@ public interface Api {
 
     String BASE_URL = "https://simplifiedcoding.net/demos/";
     @GET("marvel")
-    <results>
-    Call<List<results>> getsuperHeroes();
+    Call<List<Results>> getsuperHeroes();
 }
 
