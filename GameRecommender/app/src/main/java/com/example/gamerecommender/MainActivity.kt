@@ -1,15 +1,23 @@
 package com.example.gamerecommender
 
+import android.R.attr
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.io.ByteArrayOutputStream
+import okhttp3.*
+import org.jetbrains.annotations.NotNull
+import java.io.*
+import java.lang.ref.WeakReference
+import java.net.URI
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageUploadThree: ImageView
 
     private lateinit var uploadButton: Button
+    private lateinit var forwardButton: Button
 
     private lateinit var selectButtonOne: Button
     private lateinit var selectButtonTwo: Button
@@ -26,6 +35,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraButtonOne: Button
     private lateinit var cameraButtonTwo: Button
     private lateinit var cameraButtonThree: Button
+
+    private lateinit var image_upload_one: Uri
+    private lateinit var image_upload_two: Uri
+    private lateinit var image_upload_three: Uri
 
     private val RESULT_LOAD_IMAGE_ONE = 1
     private val RESULT_LOAD_IMAGE_TWO = 2
@@ -39,11 +52,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         imageUploadOne = findViewById(R.id.imageToUpload_1)
         imageUploadTwo = findViewById(R.id.imageToUpload_2)
         imageUploadThree = findViewById(R.id.imageToUpload_3)
 
         uploadButton = findViewById(R.id.buttonUploadImage)
+        forwardButton = findViewById(R.id.forward_button)
 
         selectButtonOne = findViewById(R.id.gallery_One)
         selectButtonTwo = findViewById(R.id.gallery_Two)
@@ -55,6 +70,15 @@ class MainActivity : AppCompatActivity() {
 
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        forwardButton.setOnClickListener {
+            startActivity(Intent(this, SubInput::class.java))
+        }
+
+        uploadButton.setOnClickListener {
+            startActivity(Intent(this, ConfirmationScreen::class.java))
+        }
+
 
         selectButtonOne.setOnClickListener {
             if(cameraIntent.resolveActivity(packageManager) != null) {
@@ -109,15 +133,24 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == RESULT_OK && data != null) {
             val bundle :Bundle?
-            val camPhoto : Bitmap
             when(requestCode) {
-                RESULT_LOAD_IMAGE_ONE -> imageUploadOne.setImageURI(data.data)
-                RESULT_LOAD_IMAGE_TWO -> imageUploadTwo.setImageURI(data.data)
-                RESULT_LOAD_IMAGE_THREE -> imageUploadThree.setImageURI(data.data)
+                RESULT_LOAD_IMAGE_ONE -> {
+                    image_upload_one = data.data!!;
+                    imageUploadOne.setImageURI(data.data)
+                }
+                RESULT_LOAD_IMAGE_TWO -> {
+                    image_upload_two = data.data!!;
+                    imageUploadTwo.setImageURI(data.data)
+                }
+                RESULT_LOAD_IMAGE_THREE -> {
+                    image_upload_three = data.data!!;
+                    imageUploadThree.setImageURI(data.data)
+                }
                 RESULT_CAMERA_IMAGE_ONE -> {
+                    image_upload_one = data.data!!;
                     bundle = data.extras
                     if (bundle != null) {
-                        camPhoto = bundle.get("data") as Bitmap
+                        val camPhoto = data.extras?.get("data") as Bitmap
                         val bytes = ByteArrayOutputStream()
                         camPhoto.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
                         imageUploadOne.setImageBitmap(camPhoto)
@@ -126,9 +159,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 RESULT_CAMERA_IMAGE_TWO -> {
+                    image_upload_two = data.data!!;
                     bundle = data.extras
                     if (bundle != null) {
-                        camPhoto = bundle.get("data") as Bitmap
+                        val camPhoto = data.extras?.get("data") as Bitmap
                         val bytes = ByteArrayOutputStream()
                         camPhoto.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
                         imageUploadTwo.setImageBitmap(camPhoto)
@@ -137,9 +171,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 RESULT_CAMERA_IMAGE_THREE -> {
+                    image_upload_three = data.data!!;
                     bundle = data.extras
                     if (bundle != null) {
-                        camPhoto = bundle.get("data") as Bitmap
+                        val camPhoto = data.extras?.get("data") as Bitmap
                         val bytes = ByteArrayOutputStream()
                         camPhoto.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
                         imageUploadThree.setImageBitmap(camPhoto)

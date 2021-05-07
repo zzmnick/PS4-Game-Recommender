@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/confirmationText"
+                android:layout_width="369dp"
+                android:layout_height="158dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="Please confirm that the image predictions are correct. If not please use the text input to input your games on the next screen."
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageCheck_1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="#009A9A9A"
+                android:contentDescription="@string/image_to_upload"
+                android:text="@string/tap_to_select_image" />
+
+            <TextView
+                android:id="@+id/predictedTitle_1"
+                android:layout_width="369dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="Title of first game"/>
+
+            <ImageView
+                android:id="@+id/imageCheck_2"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="#009A9A9A"
+                android:contentDescription="@string/image_to_upload"
+                android:text="@string/tap_to_select_image" />
+
+            <TextView
+                android:id="@+id/predictedTitle_2"
+                android:layout_width="369dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="Title of second game" />
+
+            <ImageView
+                android:id="@+id/imageCheck_3"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="#009A9A9A"
+                android:contentDescription="@string/image_to_upload"
+                android:text="@string/tap_to_select_image" />
+
+            <TextView
+                android:id="@+id/predictedTitle_3"
+                android:layout_width="369dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="Title of third game"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/toTextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To Text Input"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Button
+                    android:id="@+id/toRecommenderButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Confirm \n Recommendation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/toTextButton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

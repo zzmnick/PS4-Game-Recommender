@@ -132,6 +132,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/upload_image" />
 
+            <Button
+                android:id="@+id/forward_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To text" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

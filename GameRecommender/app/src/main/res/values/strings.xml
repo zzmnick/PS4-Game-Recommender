@@ -3,4 +3,8 @@
     <string name="upload_image">Upload Image</string>
     <string name="image_to_upload">Image to Upload</string>
     <string name="tap_to_select_image">Tap to Select Image</string>
+    <string name="error_message">There was an error identifying your image. Please resubmit your image by pressing the back button or submit the title of your game using the textbox below</string>
+    <string name="game_title">Game Title</string>
+    <string name="submit">Submit</string>
+    <string name="back">Back</string>
 </resources>
