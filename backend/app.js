@@ -3,7 +3,7 @@ const {spawn} = require('child_process');
 const app = express()
 const port = 3000
 app.get('/', (req,res) => {
-    const python = spawn('python', ['./controllers/game_recognition_model/integrated.py']);
+    const python = spawn('python', ['./controllers/script.py']);
     var dataToSend;
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
