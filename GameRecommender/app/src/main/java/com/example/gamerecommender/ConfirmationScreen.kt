@@ -23,6 +23,7 @@ class ConfirmationScreen : AppCompatActivity() {
 
     private lateinit var toText: Button
     private lateinit var toRecommender: Button
+    private lateinit var toMain: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,11 @@ class ConfirmationScreen : AppCompatActivity() {
 
         toText = findViewById(R.id.toTextButton)
         toRecommender = findViewById(R.id.toRecommenderButton)
+        toMain = findViewById(R.id.toPreviousMainActivity)
+
+        toMain.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
         toText.setOnClickListener {
             startActivity(Intent(this, SubInput::class.java))
