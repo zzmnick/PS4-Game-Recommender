@@ -1,6 +1,5 @@
 package com.example.gamerecommender
 
-import android.R.attr
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
@@ -12,11 +11,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import okhttp3.*
-import org.jetbrains.annotations.NotNull
+import androidx.core.content.FileProvider
 import java.io.*
-import java.lang.ref.WeakReference
-import java.net.URI
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +42,8 @@ class MainActivity : AppCompatActivity() {
     private val RESULT_CAMERA_IMAGE_ONE = 4
     private val RESULT_CAMERA_IMAGE_TWO = 5
     private val RESULT_CAMERA_IMAGE_THREE = 6
+
+    private lateinit var currentPhotoPath : String
 
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -82,6 +80,8 @@ class MainActivity : AppCompatActivity() {
 
         selectButtonOne.setOnClickListener {
             if(cameraIntent.resolveActivity(packageManager) != null) {
+                val imageUri = imageUpload("image_one")
+                galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                 startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE_ONE)
             } else {
                 Toast.makeText(this, "Gallery does not exist on this phone", Toast.LENGTH_LONG).show()
@@ -90,6 +90,8 @@ class MainActivity : AppCompatActivity() {
 
         selectButtonTwo.setOnClickListener {
             if(cameraIntent.resolveActivity(packageManager) != null) {
+                val imageUri = imageUpload("image_two")
+                galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                 startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE_TWO)
             } else {
                 Toast.makeText(this, "Gallery does not exist on this phone", Toast.LENGTH_LONG).show()
@@ -98,6 +100,8 @@ class MainActivity : AppCompatActivity() {
 
         selectButtonThree.setOnClickListener {
             if(cameraIntent.resolveActivity(packageManager) != null) {
+                val imageUri = imageUpload("image_three")
+                galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                 startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE_THREE)
             } else {
                 Toast.makeText(this, "Gallery does not exist on this phone", Toast.LENGTH_LONG).show()
@@ -106,6 +110,8 @@ class MainActivity : AppCompatActivity() {
 
         cameraButtonOne.setOnClickListener{
             if(cameraIntent.resolveActivity(packageManager) != null) {
+                val imageUri = imageUpload("image_one")
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                 startActivityForResult(cameraIntent, RESULT_CAMERA_IMAGE_ONE)
             } else {
                 Toast.makeText(this, "There is no app that supports this action", Toast.LENGTH_LONG).show()
@@ -114,6 +120,8 @@ class MainActivity : AppCompatActivity() {
 
         cameraButtonTwo.setOnClickListener{
             if(cameraIntent.resolveActivity(packageManager) != null) {
+                val imageUri = imageUpload("image_two")
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                 startActivityForResult(cameraIntent, RESULT_CAMERA_IMAGE_TWO)
             } else {
                 Toast.makeText(this, "There is no app that supports this action", Toast.LENGTH_LONG).show()
@@ -122,6 +130,8 @@ class MainActivity : AppCompatActivity() {
 
         cameraButtonThree.setOnClickListener{
             if(cameraIntent.resolveActivity(packageManager) != null) {
+                val imageUri = imageUpload("image_three")
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                 startActivityForResult(cameraIntent, RESULT_CAMERA_IMAGE_THREE)
             } else {
                 Toast.makeText(this, "There is no app that supports this action", Toast.LENGTH_LONG).show()
@@ -189,4 +199,20 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun imageUpload(filename : String): Uri? {
+        val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        try {
+            val imageFile = File.createTempFile(filename, ".jpg", storageDirectory)
+            currentPhotoPath = imageFile.absolutePath
+            return FileProvider.getUriForFile(this, "com.example.gamerecommender.fileprovider", imageFile)
+        } catch (e : IOException) {
+            e.printStackTrace()
+        }
+
+        return null
+    }
+
+
+
 }
