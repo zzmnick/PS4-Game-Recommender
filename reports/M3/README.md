@@ -1,9 +1,9 @@
 Milestone M3 report
 
 Current State of the Project:
-During this milestone, our team focused on completing two primary tasks. The first task was to collate and test all our models (the pretrained YOLO model, the game recognition model, and the game recommender model) in a single script, locally. The second task was to build a backend for the heavy computation required by our app (in our case, we chose to keep our entire ML fragment which included all the models working together in the backend). In addition, we have also finished working on the User Interface for our Android App.
+During this milestone, our team focused on completing two primary tasks. The first task was to collate and test all our models (the pretrained YOLO model, the game recognition model, and the game recommender model) in a single script, locally. The second task was to build a backend for the heavy computation required by our app, i.e., processing the inputs with the two ML models. The backend responds with recommendations upon and HTTP request to the server. This task also includes creating a system to allow the upload of game images to the server. In addition, we have also finished working on the User Interface for our Android App.
 
-In order to build our backend, we used Node.js. The communication (request and response) between our android app and the backend/server is to be as follows:
+In order to build our backend, we used Node.js. We used the 'express' framework for setting up the server and 'spawn' in order to run python scripts. The communication (request and response) between our android app and the backend/server is to be as follows:
 -    Upon request, the app will connect to the backend/server.
 -    The user will upload (up to) 3 images of game covers using his camera or the camera roll.
 -    This will be converted into a bitmap and then a string which will be sent over and decoded in the backend into an image and then passed as inputs to our model. 
@@ -16,7 +16,7 @@ Feature Changes to the Proposal:
 -    If we got nowhere in building a communication through Android Studio, we might switch to a different platform like StreamLit to build a web app (but this is very unlikely, given that we have a working UI).
 
 Current Challenges/Bottlenecks:
--    With regards to our app deployment, we are facing many difficulties in successfully connecting our app to our backend.
+-    We are facing difficulties in maintaining quality of images when sending them over the network to the backend for processing. Whether it affects the accuracy of the model remains to be seen through further testing.
 -    Furthermore, we are in a race against time to have the app and backend working cohesively so that we have enough time to deploy the app on Google Cloud to allow it to be run not just locally.
 
 Team Member Responsibilities:
