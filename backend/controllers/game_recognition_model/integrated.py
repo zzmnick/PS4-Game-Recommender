@@ -302,37 +302,27 @@ class GameDatasetTest(torch.utils.data.Dataset):
   def __getitem__(self, i):
       return (self.coords[i], self.ratings[i])
 
-def get_recs_game(gameid, model, games_list, num_recs):
-  if gameid in [477,526,620,626,842,1000,1127,1130,1181,1194,1224,1403]:
-    gameid = gameid - 1
-  if gameid == 1404:
-    gameid = 1402
-  index = games_list.index(gameid)
-  user_pref = model.game_emb.weight[index]
+def get_mean_recs(games,model,games_list,num_recs):
+  for i in range(len(games)):
+    if games[i] in [477,526,620,626,842,1000,1127,1130,1181,1194,1224,1403]:
+      games[i] = games[i] - 1
+    if games[i] == 1404:
+      games[i] = 1402
+  index = [games_list.index(gameid) for gameid in games]
+  user_pref = [model.game_emb.weight[i] for i in index]
   cos = nn.CosineSimilarity(dim = 0)
   sims = []
   for i in range(len(games_list)):
-    if i != index:
+    if i not in index:
       game_param = model.game_emb.weight[i]
-      similarity = cos(user_pref, game_param)
+      similarity = (cos(user_pref[0], game_param) + cos(user_pref[1], game_param) + cos(user_pref[2], game_param)) / 3
       sims.append([i, similarity])
-  return sims
-
-def get_mean_recs(games,model,games_list,num_recs):
-  one = get_recs_game(games[0], model, games_list, num_recs)
-  two = get_recs_game(games[1], model, games_list, num_recs)
-  three = get_recs_game(games[2], model, games_list, num_recs)
-  newList = []
-  for i in range(len(one)):
-    newList.append([one[i][0],(one[i][1].item() + two[i][1].item() + three[i][1].item())/3])
-    
   def sortFunc(p):
     return p[1] 
-  newList.sort(reverse=True, key=sortFunc) 
-  #print(sims[0][1].item())
+  sims.sort(reverse=True, key=sortFunc) 
   gameids = []
   for i in range(num_recs):
-    gameid = games_list[newList[i][0]]
+    gameid = games_list[sims[i][0]]
     gameids.append(gameid)
   return gameids
 
