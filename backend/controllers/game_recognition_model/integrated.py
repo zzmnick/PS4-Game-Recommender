@@ -179,9 +179,9 @@ def getGame(game_list):
   return check
     
 
-import torch, torchtext, numpy as np
-import pandas as pd, csv
-from torch import nn, optim
+import torch, numpy as np
+import pandas as pd
+from torch import nn
 from tqdm.auto import tqdm
 import random
 import pickle
@@ -190,25 +190,6 @@ import io
 torch.manual_seed(0)
 np.random.seed(0)
 torch.set_deterministic(True)
-
-
-class GameDataset(torch.utils.data.Dataset):
-  def __init__(self, fn):
-    df = pd.read_csv(fn)
-    u2n = { u: n for n, u in enumerate(df['username'].unique()) }
-    g2n = { g: n for n, g in enumerate(df['gameid'].unique()) }
-    df['username'] = df['username'].apply(lambda u: u2n[u])
-    df['gameid'] = df['gameid'].apply(lambda g: g2n[g])
-    self.coords = torch.LongTensor(df[['username','gameid']].values)
-    self.ratings = torch.FloatTensor(df['rating'].values)
-    self.n_users = df['username'].nunique()
-    self.n_games = df['gameid'].nunique()
-
-  def __len__(self):
-      return len(self.coords)
-
-  def __getitem__(self, i):
-      return (self.coords[i], self.ratings[i])
 
 class GameRecs(nn.Module):
   def __init__(self, n_users, n_games, emb_dim):
@@ -242,65 +223,6 @@ class GameRecsBias(nn.Module):
     user_b = self.user_bias(samples[:,0]).squeeze()
     game_b = self.game_bias(samples[:,1]).squeeze()
     return dot + user_b + game_b
-
-
-device = torch.device('cpu')
-
-def run_test(model, ldr, crit):
-  total_loss, total_count = 0, 0
-  model.eval()
-  tq_iters = tqdm(ldr, leave=False, desc='test iter')
-  with torch.no_grad():
-    for coords, labels in tq_iters:
-      coords, labels = coords.to(device), labels.to(device)
-      preds = model(coords)
-      loss = crit(preds, labels)
-      total_loss += loss.item() * labels.size(0)
-      total_count += labels.size(0)
-      tq_iters.set_postfix({'loss': total_loss/total_count}, refresh=True)
-  return total_loss / total_count
-
-def run_train(model, ldr, crit, opt, sched):
-  model.train()
-  total_loss, total_count = 0, 0
-  tq_iters = tqdm(ldr, leave=False, desc='train iter')
-  for (coords, labels) in tq_iters:
-    opt.zero_grad()
-    coords, labels = coords.to(device), labels.to(device)
-    preds = model(coords)
-    loss = crit(preds, labels)
-    loss.backward()
-    opt.step()
-    sched.step()
-    total_loss += loss.item() * labels.size(0)
-    total_count += labels.size(0)
-    tq_iters.set_postfix({'loss': total_loss/total_count}, refresh=True)
-  return total_loss / total_count
-
-def run_all(model, ldr_train, ldr_test, crit, opt, sched, n_epochs=10):
-  best_loss = np.inf
-  tq_epochs = tqdm(range(n_epochs), desc='epochs', unit='ep')
-  for epoch in tq_epochs:
-    train_loss = run_train(model, ldr_train, crit, opt, sched)
-    test_loss = run_test(model, ldr_test, crit)
-    tqdm.write(f'epoch {epoch}   train loss {train_loss:.6f}    test loss {test_loss:.6f}')
-    if test_loss < best_loss:
-      best_loss = test_loss
-      tq_epochs.set_postfix({'bE': epoch, 'bL': best_loss}, refresh=True)
-
-
-class GameDatasetTest(torch.utils.data.Dataset):
-  def __init__(self, df):
-    self.coords = torch.LongTensor(df[['username','gameid']].values)
-    self.ratings = torch.FloatTensor(df['rating'].values)
-    self.n_users = df['username'].nunique()
-    self.n_games = df['gameid'].nunique()
-
-  def __len__(self):
-      return len(self.coords)
-
-  def __getitem__(self, i):
-      return (self.coords[i], self.ratings[i])
 
 def get_mean_recs(games,model,games_list,num_recs):
   for i in range(len(games)):
