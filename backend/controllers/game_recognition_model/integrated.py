@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+# This code has been modified to suit our needs
 
 from __future__ import absolute_import
 from __future__ import division
@@ -29,6 +30,8 @@ import numpy as np
 #import tensorflow as tf
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
+
+# Image classifier
 
 import cv2
 import numpy as np
@@ -72,14 +75,9 @@ def get_title(path):
         return [None],None,None            
     x,y,w,h = box
     portion = img[y:y+h, x:x+w]
-    #portion = cv2.cvtColor(portion, cv2.COLOR_BGR2GRAY)
-    #th3 = cv2.adaptiveThreshold(portion,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-    #        cv2.THRESH_BINARY,11,2)
-    #cv2.imshow("..",portion)
-    #cv2.waitkey(0)
+    
     height, width, channels = portion.shape
-    #dim = max([height,width])
-    #factor = 224/dim
+    
     portion = cv2.resize(portion,None,fx = 224/width, fy = 224/height)
     return portion,height,width
 
@@ -165,7 +163,7 @@ def getGame(game_list):
     top_k = results.argsort()[-1:][::-1]
     labels = load_labels(label_file)
 
-    #print('\nEvaluation time (1-image): {:.3f}s\n'.format(end-start))
+    
     template = "{} (score={:0.5f})"
     df = pd.read_csv(root+"games.csv")
     names = df['game']
@@ -178,7 +176,8 @@ def getGame(game_list):
         check.append(ind)
   return check
     
-
+# Recommmendation system
+	
 import torch, numpy as np
 import pandas as pd
 from torch import nn
