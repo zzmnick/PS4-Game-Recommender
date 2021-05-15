@@ -21,5 +21,5 @@ python -m scripts.label_image     --graph=tf_files/retrained_graph.pb      --ima
 
 One image has been provided as test.
 
-Note: This model works but is slightly outdated since it was an intermediate step for our project. Please refer to the directory backend/game_recognition_model for the most up-to-date model.
+Note: This model works but is slightly outdated since it was an intermediate step for our project. Please refer to the directory backend/controllers/game_recognition_model for the most up-to-date model.
 
