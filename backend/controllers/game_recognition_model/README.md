@@ -21,3 +21,5 @@ python -m scripts.label_image     --graph=tf_files/retrained_graph.pb      --ima
 
 One image has been provided as test.
 
+The folder scripts contains all code used for training.
+
