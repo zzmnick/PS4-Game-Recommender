@@ -2,6 +2,7 @@ const express = require('express');
 const {spawn} = require('child_process');
 const app = express()
 const port = 3000
+// Code for testing Node.js as an option
 app.get('/', (req,res) => {
     const python = spawn('python', ['./controllers/game_recognition_model/integrated.py']);
     var dataToSend;
