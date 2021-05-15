@@ -1,4 +1,5 @@
 import os
+# script run by server to set up the environment for the application to work
 root = os.getcwd()
 
 folder = os.listdir(root+"/uploads/")
