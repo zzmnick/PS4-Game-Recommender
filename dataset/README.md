@@ -9,3 +9,5 @@ This directory contains all the dataset used in our project:
 'user_ratings_aug.csv' contains the augmented version of user_ratings.csv
 
 'Collecting_data.ipynb' contains all the code used for collecting information and building the datasets
+
+'scrape.py' contains code used for scraping game cover arts for all games inour datasets. The titles were then manually extracted and stored in 'titles.zip'.
