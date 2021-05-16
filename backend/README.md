@@ -8,3 +8,5 @@ The file multipart.js contains modified code from https://www.journaldev.com/237
 and runs the python scripts.
 
 The folder node_modules already include the dependencies required by Node.js.
+
+The backend server has been deployed on google cloud platform. However if the app failed to connect to the server for some reason, the backend server can also be started locally in order to run the app. A demo for doing this is included in the final video (https://www.youtube.com/watch?v=Kh8eK9YB4-c), starting from 12:56.
