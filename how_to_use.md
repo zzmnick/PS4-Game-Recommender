@@ -9,7 +9,7 @@ This document gives direction to try this application.
 8. Copy this IP over to the MainActivity.kt file in the app directory (for an example on how and where to do this, refer to the last few minutes of the video). 
 9. Now try running the app again.
 10. If it still doesn't work, it might be because the server stopped unexpectedly and wasn't set up again, or because we ran out of credits on Google Cloud.
-11. In such a case, try running the backend on localhost. To do this, download the yolo weights into the directory './backend' on your local computer(link in ./backend).
+11. In such a case, try running the backend on localhost. To do this, download the yolo weights into the directory './backend/controllers/game_recognition_model' on your local computer (link in ./backend).
 12. Then simply follow the steps in the last 2-3 minutes of the video. 
 
  
