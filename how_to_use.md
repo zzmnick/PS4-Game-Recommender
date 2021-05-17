@@ -12,5 +12,6 @@ This document gives direction to try this application.
 11. In such a case, try running the backend on localhost. To do this, download the yolo weights into the directory './backend/controllers/game_recognition_model' on your local computer (link in ./backend).
 12. Then simply follow the steps in the last 2-3 minutes of the video. 
 
+Note: You might face an issue "Request failed" on uploading images. That is an unexpected error that sometimes occurs even when the server is running. In such a case, just switch to local.
  
 
