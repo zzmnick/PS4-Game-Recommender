@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         val client = OkHttpClient.Builder().build()
         resetApp()
         apiService =
-            Retrofit.Builder().baseUrl("http://35.192.112.115:3000").client(client).build().create(
+            Retrofit.Builder().baseUrl("http://34.67.190.198:3000").client(client).build().create(
                 ApiService::class.java
             )
 
@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity() {
     }
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun getResults(){
-        val url = "http://35.192.112.115:3000/compute/"
+        val url = "http://34.67.190.198:3000/compute/"
         val myurl = URL(url)
         val con:HttpURLConnection =  myurl.openConnection() as HttpURLConnection
         try {
@@ -241,7 +241,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun clearUploads(){
-        val url = "http://35.192.112.115:3000/clear/"
+        val url = "http://34.67.190.198:3000/clear/"
         val myurl = URL(url)
         val con:HttpURLConnection =  myurl.openConnection() as HttpURLConnection
         try {
