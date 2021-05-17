@@ -6,3 +6,4 @@ Tested devices that can run the app:
 -    Android emulator (Android 11)
 -    Oneplus 7 pro (Android 11)
 -    Oneplus 3 (Android 9)
+-    Samsung Galaxy A51
