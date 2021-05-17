@@ -10,7 +10,9 @@ This portion requires two main installations:
 
 2. Tensorflow (preferably above 2.0, needs slight modifications with 1.8)
 
+3. PyTorch, which our recommender model is built with
+
 The folder scripts contains all code used for training.
 
-The file integrated.py is the core of the Machine Learning project and computes all the results in one go after accepting inputs. This backend is running on the Google Cloud Platform. If the server does not respond, refer to directions for usage of the application.
+The file integrated.py is the core of the Machine Learning components of this project. It has integrated all our models (YOLO model, classifier model and recommendation model) and computes all the results in one go after accepting inputs. This backend is running on the Google Cloud Platform. If the server does not respond, refer to the final video (starting at 12:56) for instructions on how to start a server locally.
 
