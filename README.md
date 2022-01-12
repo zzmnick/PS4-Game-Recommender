@@ -1,7 +1,5 @@
-# project-team-spinosaurus
-CPEN 291 final project for team-spinosaurus
-
-This is our Game Recommender project for CPEN 291.
+This is an Android application that recommends PS4 games given the cover images of a user's three most favorite games.
+This project was initially built for CPEN 291 at UBC.
 
 Refer to:-
 
@@ -11,11 +9,6 @@ backend - for the backend scripts and ML components of the application
 
 dataset - for the datasets used for training and the code used to extract them
 
-reports - for the project derivalebles like the Milestone reports and the final report
-
-how_to_use.md - use this file on instructions on how to try our app out (Current IP for Google Cloud: 34.67.190.198)
-
-The directories game_recognition_model and recommender_model have been included as stand-alone, intermediate steps for our project. They can be ignored since they have been slightly modified and included in
-backend/controllers/game_recognition_model/
+reports - for a presentation introducing the features and technical details of this app
 
 
