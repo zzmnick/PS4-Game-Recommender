@@ -1,4 +1,4 @@
-#Introduction:
+# Introduction:
 This is an Android application that recommends PS4 games given the cover images of a user's three most favorite games.
 
 This project was initially built for CPEN 291 at UBC.
@@ -14,7 +14,7 @@ dataset - for the datasets used for training and the code used to extract them
 reports - for a presentation introducing the features and technical details of this app
 
 
-#Instructions on how to use:
+# Instructions on how to use:
 1. Currently the backend server is not deployed on any cloud platform. So the server must be run locally for the app to work. To do this, enter /backend directory and use the following commands:
 ```
 $npm install
