@@ -11,6 +11,7 @@ class Results2 : AppCompatActivity() {
     private lateinit var listView: ListView
     private lateinit var button: Button
     private lateinit var arrayAdapter: ArrayAdapter<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results2)

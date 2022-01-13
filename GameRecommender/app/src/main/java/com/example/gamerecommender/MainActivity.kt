@@ -25,20 +25,14 @@ import java.net.URL
 class MainActivity : AppCompatActivity() {
 
     private lateinit var imageUploadOne: ImageView
-
     private lateinit var uploadButton: Button
-
-
     private lateinit var cameraButtonOne: Button
-
     private lateinit var image1: Bitmap
-
     private lateinit var apiService:ApiService
     private lateinit var textView: TextView
 
-
-
     private val RESULT_CAMERA_IMAGE_ONE = 4
+    private val SERVER_URL = "http://192.168.0.102:3000"
 
     private var a = 0
     private var uploaded = 0
@@ -51,27 +45,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         imageUploadOne = findViewById(R.id.imageToUpload_1)
-
-
         uploadButton = findViewById(R.id.buttonUploadImage)
-
-
-
         cameraButtonOne = findViewById(R.id.camera_One)
         textView = findViewById(R.id.textView)
 
         val client = OkHttpClient.Builder().build()
         resetApp()
         apiService =
-            Retrofit.Builder().baseUrl("http://34.67.190.198:3000").client(client).build().create(
+            Retrofit.Builder().baseUrl(SERVER_URL).client(client).build().create(
                 ApiService::class.java
             )
 
-
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-
-
         cameraButtonOne.setOnClickListener{
             if(uploaded != 3) {
                 if (cameraIntent.resolveActivity(packageManager) != null) {
@@ -85,7 +70,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
 
         uploadButton.setOnClickListener{
             if(uploaded != 3){
@@ -145,6 +129,7 @@ class MainActivity : AppCompatActivity() {
             val body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile)
             val name = RequestBody.create(MediaType.parse("text/plain"), "upload")
             val req: Call<ResponseBody?>? = apiService.postImage(body, name)
+
             if (req != null) {
                 req.enqueue(object : Callback<ResponseBody?> {
                     @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -197,9 +182,10 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun getResults(){
-        val url = "http://34.67.190.198:3000/compute/"
+        val url = SERVER_URL + "/compute/"
         val myurl = URL(url)
         val con:HttpURLConnection =  myurl.openConnection() as HttpURLConnection
         try {
@@ -220,6 +206,7 @@ class MainActivity : AppCompatActivity() {
             con.disconnect()
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun resetApp(){
         a = 0
@@ -241,7 +228,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun clearUploads(){
-        val url = "http://34.67.190.198:3000/clear/"
+        val url = "$SERVER_URL/clear/"
         val myurl = URL(url)
         val con:HttpURLConnection =  myurl.openConnection() as HttpURLConnection
         try {

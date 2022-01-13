@@ -1,2 +1,2 @@
-
-backend/controllers/game_recognition_model/yolov3_training_last.weights
+backend/recommendation_model/yolov3_training_last.weights
+backend/node_modules
