@@ -21,15 +21,12 @@ from __future__ import division
 from __future__ import print_function
 import pandas as pd
 import os
-
 import cv2
-
 import argparse
 import sys
 import time
 
 import numpy as np
-#import tensorflow as tf
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 
@@ -41,47 +38,46 @@ import glob
 import random
 root = os.getcwd() + "/recommendation_model/"
 def get_title(path):
-    net = cv2.dnn.readNet(root+"yolov3_training_last.weights", root+"yolov3_testing.cfg")
-    #print(path + "\n")
-    img = cv2.imread(path)
-    layer_names = net.getLayerNames()
-    output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
-    img = cv2.resize(img, None, fx=1, fy=1)
-    height, width, channels = img.shape
-    blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
-    net.setInput(blob)
-    outs = net.forward(output_layers)
-    box = 0
-    m = 0
-    for out in outs:
-        for detection in out:
-            scores = detection[5:]
-            class_id = np.argmax(scores)
-            confidence = scores[class_id]
-            if confidence > 0.3:
-                # Object detected
-                #print(class_id)
-                center_x = int(detection[0] * width)
-                center_y = int(detection[1] * height)
-                w = int(detection[2] * width)
-                h = int(detection[3] * height)
+  net = cv2.dnn.readNet(root+"yolov3_training_last.weights", root+"yolov3_testing.cfg")
+  #print(path + "\n")
+  img = cv2.imread(path)
+  layer_names = net.getLayerNames()
+  output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+  img = cv2.resize(img, None, fx=1, fy=1)
+  height, width, channels = img.shape
+  blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
+  net.setInput(blob)
+  outs = net.forward(output_layers)
+  box = 0
+  m = 0
+  for out in outs:
+    for detection in out:
+      scores = detection[5:]
+      class_id = np.argmax(scores)
+      confidence = scores[class_id]
+      if confidence > 0.3:
+        # Object detected
+        center_x = int(detection[0] * width)
+        center_y = int(detection[1] * height)
+        w = int(detection[2] * width)
+        h = int(detection[3] * height)
 
-                # Rectangle coordinates
-                x = int(center_x - w / 2)
-                y = int(center_y - h / 2)
+        # Rectangle coordinates
+        x = int(center_x - w / 2)
+        y = int(center_y - h / 2)
 
-                if (width*height)>m:
-                    m = width*height
-                    box = [x,y,w,h]
-    if box == 0:
-        return [None],None,None            
-    x,y,w,h = box
-    portion = img[y:y+h, x:x+w]
+        if (width*height)>m:
+          m = width*height
+          box = [x,y,w,h]
+  if box == 0:
+    return [None],None,None            
+  x,y,w,h = box
+  portion = img[y:y+h, x:x+w]
     
-    height, width, channels = portion.shape
+  height, width, channels = portion.shape
     
-    portion = cv2.resize(portion,None,fx = 224/width, fy = 224/height)
-    return portion,height,width
+  portion = cv2.resize(portion,None,fx = 224/width, fy = 224/height)
+  return portion,height,width
 
 def load_graph(model_file):
   graph = tf.Graph()
@@ -261,19 +257,16 @@ try:
   df = pd.read_csv(root+'user_ratings_aug.csv')
   unique_list = df['gameid'].unique().tolist()
 
-#print(len(unique_list))
   f = open(root+"model_param.pickle","rb")
   direc = os.listdir(root+'../uploads')
   fns = [root+'../uploads/'+direc[0],root+'../uploads/'+direc[1],root+'../uploads/'+direc[2]]
   check = getGame(fns)
-#print(check)
+
   model = CPU_Unpickler(f).load()
   recs = get_mean_recs(check, model, unique_list, 5)
   df2 = pd.read_csv(root+'games.csv')
   names = df2['game']
-#print('CHECKING FOR...\n')
-#print(names[check])
-#print('RESULTS...\n')
+
   for r in recs:
     print(names[r]+"***")
 

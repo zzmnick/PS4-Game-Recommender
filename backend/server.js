@@ -15,7 +15,6 @@ var form = "<!DOCTYPE HTML><html><body>" +
 app.get('/', function (req, res){
   res.writeHead(200, {'Content-Type': 'text/html' });
   res.end(form);
-
 });
 
 // Include the node file module
@@ -53,44 +52,41 @@ app.get('/uploads/:upload', function (req, res){
   var img = fs.readFileSync(__dirname + "/uploads/" + file);
   res.writeHead(200, {'Content-Type': 'image/png' });
   res.end(img, 'binary');
-
 });
 
 app.get('/compute/',function(req,res){
     const python = spawn('python', ['./recommendation_model/integrated.py']);
     var dataToSend;
     python.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
-        //console.log(data)
-        dataToSend = data.toString();
-       });
-       python.stderr.on('data', function (data) {
-        console.log('stderr: ' + data);
-      });  
-       python.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
-        console.log(dataToSend);
-        // send data to browser
-        res.send(dataToSend)
-        });
+      console.log('Pipe data from python script ...');
+      dataToSend = data.toString();
+    });
+    python.stderr.on('data', function (data) {
+      console.log('stderr: ' + data);
+    });  
+    python.on('close', (code) => {
+      console.log(`child process close all stdio with code ${code}`);
+      console.log(dataToSend);
+      // send data to browser
+      res.send(dataToSend)
+    });
 });
 
 app.get('/clear/',function(req,res){
   const python = spawn('python', ['./recommendation_model/clear.py']);
   var dataToSend;
   python.stdout.on('data', function (data) {
-      console.log('Pipe data from python script ...');
-      //console.log(data)
-      dataToSend = data.toString();
-     });
-     python.stderr.on('data', function (data) {
-      console.log('stderr: ' + data);
-    });  
-     python.on('close', (code) => {
-      console.log(`child process close all stdio with code ${code}`);
-      // send data to browser
-      res.send(dataToSend)
-      });
+    console.log('Pipe data from python script ...');
+    dataToSend = data.toString();
+  });
+  python.stderr.on('data', function (data) {
+    console.log('stderr: ' + data);
+  });  
+  python.on('close', (code) => {
+    console.log(`child process close all stdio with code ${code}`);
+    // send data to browser
+    res.send(dataToSend)
+  });
 });
 
 

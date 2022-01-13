@@ -22,8 +22,8 @@ def get_title(path):
             class_id = np.argmax(scores)
             confidence = scores[class_id]
             if confidence > 0.3:
+                
                 # Object detected
-                #print(class_id)
                 center_x = int(detection[0] * width)
                 center_y = int(detection[1] * height)
                 w = int(detection[2] * width)
@@ -40,14 +40,7 @@ def get_title(path):
         return [None],None,None            
     x,y,w,h = box
     portion = img[y:y+h, x:x+w]
-    #portion = cv2.cvtColor(portion, cv2.COLOR_BGR2GRAY)
-    #th3 = cv2.adaptiveThreshold(portion,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-    #        cv2.THRESH_BINARY,11,2)
-    #cv2.imshow("..",portion)
-    #cv2.waitkey(0)
     height, width, channels = portion.shape
-    #dim = max([height,width])
-    #factor = 224/dim
     portion = cv2.resize(portion,None,fx = 224/width, fy = 224/height)
     return portion,height,width
 

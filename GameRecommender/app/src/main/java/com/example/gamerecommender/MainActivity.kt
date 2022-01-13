@@ -21,7 +21,6 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var imageUploadOne: ImageView
